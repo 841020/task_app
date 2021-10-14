@@ -22,5 +22,3 @@ def add_tasks():
     data = request.json
     add_task(data)
     return jsonify(json.loads(get_task(data)))
-
-

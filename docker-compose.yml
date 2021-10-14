@@ -2,8 +2,10 @@ version: "3.9"
 services:
   flask_web:
     build:
-      context: .
+      context: ./web/
       dockerfile: Dockerfile
     ports:
       - 8000:8000
+    volumes:
+      - ./web:/web
     restart: always

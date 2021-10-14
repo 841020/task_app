@@ -14,7 +14,7 @@ def hello_world():
 def create_task():
     data = request.json
     data_id = add_task(data)
-    return get_task(data_id)
+    return get_task(data_id), 201
 
 
 @app.route("/tasks", methods=['GET'])

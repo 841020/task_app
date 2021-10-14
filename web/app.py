@@ -1,6 +1,7 @@
 from flask import Flask,  request
 
-from models import get_tasks_list, add_task, get_task
+from models import Tasks
+from orm_controller import read_rows_list, create_row, read_row, update_row
 
 app = Flask(__name__)
 
@@ -13,13 +14,25 @@ def hello_world():
 @app.route("/task", methods=['POST'])
 def create_task():
     data = request.json
-    data_id = add_task(data)
-    return get_task(data_id), 201
+    data_id = create_row(Tasks, data)
+    return read_row(Tasks, data_id), 201
 
 
 @app.route("/tasks", methods=['GET'])
 def read_tasks():
-    return get_tasks_list()
+    return read_rows_list(Tasks)
+
+
+@app.route("/task/<int:id>", methods=['PUT'])
+def update_task(id):
+    data = request.json
+    update_row(Tasks, id, data)
+    return read_row(Tasks, id)
+
+
+# @app.route("/task/<int:id>", methods=['DELETE'])
+# def delete_task():
+#     pass
 
 
 @app.route("/task", methods=['POST'])

@@ -1,5 +1,9 @@
-from flask import Flask, jsonify
-from models import Tasks, get_tasks_list
+import json
+
+from flask import Flask, jsonify, request
+
+from models import get_tasks_list, add_task, get_task
+
 app = Flask(__name__)
 
 
@@ -10,6 +14,13 @@ def hello_world():
 
 @app.route("/tasks", methods=['GET'])
 def get_tasks():
-    return jsonify({
-        "result": get_tasks_list()
-    })
+    return jsonify(json.loads(get_tasks_list()))
+
+
+@app.route("/task", methods=['POST'])
+def add_tasks():
+    data = request.json
+    add_task(data)
+    return jsonify(json.loads(get_task(data)))
+
+

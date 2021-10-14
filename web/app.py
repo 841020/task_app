@@ -1,7 +1,7 @@
 from flask import Flask,  request
 
 from models import Tasks
-from orm_controller import read_rows_list, create_row, read_row, update_row
+from orm_controller import create_row, read_rows_list,  read_row, update_row, delete_row
 
 app = Flask(__name__)
 
@@ -24,15 +24,16 @@ def read_tasks():
 
 
 @app.route("/task/<int:id>", methods=['PUT'])
-def update_task(id):
+def update_task(id=0):
     data = request.json
     update_row(Tasks, id, data)
     return read_row(Tasks, id)
 
 
-# @app.route("/task/<int:id>", methods=['DELETE'])
-# def delete_task():
-#     pass
+@app.route("/task/<int:id>", methods=['DELETE'])
+def delete_task(id=0):
+    delete_row(Tasks, id)
+    return '', 200
 
 
 @app.route("/task", methods=['POST'])

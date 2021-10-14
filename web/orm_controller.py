@@ -61,7 +61,17 @@ def update_row(table, row_id, data):
         except:
             session.rollback()
             raise
-        else:
-            return row_id
+        finally:
+            session.commit()
+
+
+def delete_row(table, row_id):
+    with Session(engine) as session:
+        session.begin()
+        try:
+            session.query(table).filter_by(id=row_id).delete()
+        except:
+            session.rollback()
+            raise
         finally:
             session.commit()

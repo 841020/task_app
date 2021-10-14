@@ -6,7 +6,7 @@ from sqlalchemy.orm import declarative_base, Session
 
 
 Base = declarative_base()
-engine = create_engine('sqlite:////sample.db', echo=True)
+engine = create_engine('sqlite:///sample.db', echo=True)
 
 
 class Tasks(Base):

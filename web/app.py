@@ -34,10 +34,3 @@ def update_task(id=0):
 def delete_task(id=0):
     delete_row(Tasks, id)
     return '', 200
-
-
-@app.route("/task", methods=['POST'])
-def add_tasks():
-    data = request.json
-    add_task(data)
-    return jsonify(json.loads(get_task(data)))

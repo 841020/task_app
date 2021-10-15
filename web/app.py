@@ -26,13 +26,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route("/hello")
-    def hello():
-        return "Hello, World!"
-
     @app.route("/")
     def hello_world():
-        return "<p>Hello, World!</p>"
+        return "Hello, World!"
 
     @app.route("/task", methods=['POST'])
     def create_task():

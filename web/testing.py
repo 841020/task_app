@@ -21,3 +21,22 @@ class OrmTest(unittest.TestCase):
         response = self.test_client.post('/task', json={"name": "買晚餐"}, follow_redirects=True)
         self.assertEqual(response.get_data().decode(), '{"result":{"id":1,"name":"買晚餐","status":false}}\n')
         self.assertEqual(response.status_code, 201)
+
+    def test_get_tasks(self):
+        # Empty table
+        response = self.test_client.get('/tasks')
+        self.assertEqual(response.get_data().decode(), '{"result":[]}\n')
+        self.assertEqual(response.status_code, 200)
+
+        self.test_client.post('/task', json={"name": "買晚餐"}, follow_redirects=True)
+        response = self.test_client.get('/tasks')
+        self.assertEqual(response.get_data().decode(), '{"result":[{"id":1,"name":"買晚餐","status":false}]}\n')
+        self.assertEqual(response.status_code, 200)
+
+    # def test_put_task(self):
+    #     response = self.test_client.put('/')
+    #     pass
+
+    # def test_delete_task(self):
+    #     response = self.test_client.delete('/')
+    #     pass

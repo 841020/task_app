@@ -11,7 +11,8 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     config_dt = {
         "SECRET_KEY": "dev",
-        "DATABASE": "sqlite:///sample.db"
+        "DATABASE": "sqlite:///sample.db",
+        "JSON_AS_ASCII": False
     }
     app.config.update(config_dt)
 

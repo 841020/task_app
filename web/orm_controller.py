@@ -1,11 +1,11 @@
 from flask import jsonify
 from sqlalchemy.orm import Session
 
-from models import engine
+from models import global_args
 
 
 def create_row(table, data):
-    with Session(engine) as session:
+    with Session(global_args()["engine"]) as session:
         session.begin()
         try:
             new_row = table(**data)
@@ -21,7 +21,7 @@ def create_row(table, data):
 
 
 def read_rows_list(table):
-    with Session(engine) as session:
+    with Session(global_args()["engine"]) as session:
         session.begin()
         try:
             rows = session.query(table).all()
@@ -39,7 +39,7 @@ def read_rows_list(table):
 
 
 def read_row(table, row_id):
-    with Session(engine) as session:
+    with Session(global_args()["engine"]) as session:
         session.begin()
         try:
             row = session.query(table).get(row_id)
@@ -54,7 +54,7 @@ def read_row(table, row_id):
 
 
 def update_row(table, row_id, data):
-    with Session(engine) as session:
+    with Session(global_args()["engine"]) as session:
         session.begin()
         try:
             session.query(table).filter_by(id=row_id).update(data)
@@ -66,7 +66,7 @@ def update_row(table, row_id, data):
 
 
 def delete_row(table, row_id):
-    with Session(engine) as session:
+    with Session(global_args()["engine"]) as session:
         session.begin()
         try:
             session.query(table).filter_by(id=row_id).delete()

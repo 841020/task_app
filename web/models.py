@@ -1,9 +1,7 @@
-
-from sqlalchemy import create_engine, Column, Integer, String, Boolean, text
+from sqlalchemy import Column, Integer, String, Boolean, text, create_engine
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
-engine = create_engine('sqlite:///sample.db', echo=True)
 
 
 class Tasks(Base):
@@ -14,4 +12,11 @@ class Tasks(Base):
     status = Column(Boolean, server_default=text('0'))
 
 
-Base.metadata.create_all(engine)
+def init_db(app):
+    engine = create_engine(app.config["DATABASE"], echo=True)
+    Base.metadata.create_all(engine)
+    global_args()["engine"] = engine
+
+
+def global_args(dt=dict()):
+    return dt

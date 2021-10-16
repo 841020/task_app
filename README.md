@@ -1,5 +1,12 @@
 # task_app
 
+<p>docker pull and docker run</p>
+<pre><code>$sudo docker pull ghcr.io/841020/task_app:main</code></pre>
+<pre><code>$sudo docker run --publish 8000:8000 {image id}</code></pre>
+<p>then you can test tasK_app on 127.0.0.1:8000 from website</p>
+
+# Follow here for local development or testing
+
 <p>local unittest</p>
 <pre><code>$cd web</code></pre>
 <pre><code>$coverage run -m unittest discover</code></pre>
@@ -11,7 +18,3 @@
 <pre><code>$export FLASK_APP="app:create_app()"</code></pre>
 <pre><code>$export FLASK_ENV=development</code></pre>
 <pre><code>$flask run --port 8000</code></pre>
-
-<p>run with docker-compose</p>
-<pre><code>$cd task_app</code></pre>
-<pre><code>$sudo docker-compose up</code></pre>

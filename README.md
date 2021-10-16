@@ -3,7 +3,8 @@
 <p>docker pull and docker run</p>
 <pre><code>$sudo docker pull ghcr.io/841020/task_app:main</code></pre>
 <pre><code>$sudo docker run --publish 8000:8000 {image id}</code></pre>
-<p>then you can test tasK_app on 127.0.0.1:8000 from website</p>
+<p>then you can test task_app on 127.0.0.1:8000 from website</p>
+<p>if you don't want to init your server data every time, your should volumes out sample.db from task_app container</p>
 
 # Follow here for local development or testing
 

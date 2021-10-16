@@ -73,18 +73,20 @@ class OrmTestCase(unittest.TestCase):
         exc_type, exc_obj, exc_tb = read_rows_list('123')
         # table not exist
         self.assertEqual(str(exc_type), "<class 'sqlalchemy.exc.ArgumentError'>")
-        self.assertEqual(str(exc_obj),"Textual column expression '123' should be explicitly declared with text('123'), or use column('123') for more specificity")
+        self.assertEqual(str(exc_obj), "Textual column expression '123' should be explicitly declared with text('123'), or use column('123') for more specificity")
 
     def test_read_row(self):
         # index id not exist
         exc_type, exc_obj, exc_tb = read_row(Tasks, 0)
         self.assertEqual(str(exc_type), "<class 'AttributeError'>")
-        self.assertEqual(str(exc_obj),"'NoneType' object has no attribute '__dict__'")
+        self.assertEqual(str(exc_obj), "'NoneType' object has no attribute '__dict__'")
 
     def test_update_row(self):
         exc_type, exc_obj, exc_tb = update_row(123, 0, {'status': True})
         self.assertEqual(str(exc_type), "<class 'sqlalchemy.exc.InvalidRequestError'>")
-        self.assertEqual(str(exc_obj),'Entity namespace for "123" has no property "id"')
+        self.assertEqual(str(exc_obj), 'Entity namespace for "123" has no property "id"')
 
     def test_delete_row(self):
-        pass
+        exc_type, exc_obj, exc_tb = delete_row(123, 0)
+        self.assertEqual(str(exc_type), "<class 'sqlalchemy.exc.InvalidRequestError'>")
+        self.assertEqual(str(exc_obj), 'Entity namespace for "123" has no property "id"')

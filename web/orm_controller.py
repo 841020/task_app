@@ -74,6 +74,6 @@ def delete_row(table, row_id):
             session.query(table).filter_by(id=row_id).delete()
         except:
             session.rollback()
-            raise
+            return sys.exc_info()
         finally:
             session.commit()

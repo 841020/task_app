@@ -1,3 +1,5 @@
+import sys
+
 from flask import jsonify
 from sqlalchemy.orm import Session
 
@@ -13,7 +15,7 @@ def create_row(table, data):
             session.flush()
         except:
             session.rollback()
-            raise
+            return sys.exc_info()
         else:
             return str(new_row.id)
         finally:

@@ -62,7 +62,7 @@ def update_row(table, row_id, data):
             session.query(table).filter_by(id=row_id).update(data)
         except:
             session.rollback()
-            raise
+            return sys.exc_info()
         finally:
             session.commit()
 

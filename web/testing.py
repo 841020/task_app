@@ -82,7 +82,9 @@ class OrmTestCase(unittest.TestCase):
         self.assertEqual(str(exc_obj),"'NoneType' object has no attribute '__dict__'")
 
     def test_update_row(self):
-        pass
+        exc_type, exc_obj, exc_tb = update_row(123, 0, {'status': True})
+        self.assertEqual(str(exc_type), "<class 'sqlalchemy.exc.InvalidRequestError'>")
+        self.assertEqual(str(exc_obj),'Entity namespace for "123" has no property "id"')
 
     def test_delete_row(self):
         pass

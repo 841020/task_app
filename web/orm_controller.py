@@ -33,7 +33,7 @@ def read_rows_list(table):
                 result.append(row.__dict__)
         except:
             session.rollback()
-            raise
+            return sys.exc_info()
         else:
             return jsonify({'result': result})
         finally:
@@ -48,7 +48,7 @@ def read_row(table, row_id):
             row.__dict__.pop('_sa_instance_state')
         except:
             session.rollback()
-            raise
+            return sys.exc_info()
         else:
             return jsonify({'result': row.__dict__})
         finally:
@@ -62,7 +62,7 @@ def update_row(table, row_id, data):
             session.query(table).filter_by(id=row_id).update(data)
         except:
             session.rollback()
-            raise
+            return sys.exc_info()
         finally:
             session.commit()
 
@@ -74,6 +74,6 @@ def delete_row(table, row_id):
             session.query(table).filter_by(id=row_id).delete()
         except:
             session.rollback()
-            raise
+            return sys.exc_info()
         finally:
             session.commit()

@@ -1,5 +1,6 @@
 import os
 import unittest
+import json
 
 from app import create_app
 from orm_controller import create_row, read_rows_list, read_row, update_row, delete_row
@@ -22,26 +23,26 @@ class ApiTestCase(unittest.TestCase):
 
     def test_post_task(self):
         response = self.test_client.post('/task', json={"name": "買晚餐"}, follow_redirects=True)
-        self.assertEqual(response.get_data().decode(), '{"result":{"id":1,"name":"買晚餐","status":false}}\n')
+        self.assertEqual(json.loads(response.get_data().decode()), {"result": {"id": 1, "name": "買晚餐", "status": False}})
         self.assertEqual(response.status_code, 201)
 
     def test_get_tasks(self):
         # Empty table
         response = self.test_client.get('/tasks')
-        self.assertEqual(response.get_data().decode(), '{"result":[]}\n')
+        self.assertEqual(json.loads(response.get_data().decode()), {"result": []})
         self.assertEqual(response.status_code, 200)
 
         # add one row into db
         self.test_client.post('/task', json={"name": "買晚餐"}, follow_redirects=True)
         response = self.test_client.get('/tasks')
-        self.assertEqual(response.get_data().decode(), '{"result":[{"id":1,"name":"買晚餐","status":false}]}\n')
+        self.assertEqual(json.loads(response.get_data().decode()), {"result": [{"id": 1, "name": "買晚餐", "status": False}]})
         self.assertEqual(response.status_code, 200)
 
     def test_put_task(self):
         # add one row into db
         self.test_client.post('/task', json={"name": "買晚餐"}, follow_redirects=True)
         response = self.test_client.put("/task/1", json={"name": "買早餐", "status": 1, "id": 1})
-        self.assertEqual(response.get_data().decode(), '{"result":{"id":1,"name":"買早餐","status":true}}\n')
+        self.assertEqual(json.loads(response.get_data().decode()), {"result": {"id": 1, "name": "買早餐", "status": True}})
         self.assertEqual(response.status_code, 200)
 
     def test_delete_task(self):
@@ -70,6 +71,9 @@ class OrmTestCase(unittest.TestCase):
 
     def test_read_rows_list(self):
         pass
+        # exc_type, exc_obj, exc_tb = read_rows_list('123')
+        # self.assertEqual(str(exc_type), "<class 'sqlalchemy.exc.StatementError'>")
+        # self.assertEqual(str(exc_obj)
 
     def test_read_row(self):
         pass

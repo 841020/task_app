@@ -33,7 +33,7 @@ def read_rows_list(table):
                 result.append(row.__dict__)
         except:
             session.rollback()
-            raise
+            return sys.exc_info()
         else:
             return jsonify({'result': result})
         finally:
@@ -48,7 +48,7 @@ def read_row(table, row_id):
             row.__dict__.pop('_sa_instance_state')
         except:
             session.rollback()
-            raise
+            return sys.exc_info()
         else:
             return jsonify({'result': row.__dict__})
         finally:

@@ -70,13 +70,16 @@ class OrmTestCase(unittest.TestCase):
         self.assertEqual(str(exc_obj), "(builtins.ValueError) Value 123 is not None, True, or False\n[SQL: INSERT INTO tasks (name, status) VALUES (?, ?)]\n[parameters: [{'status': 123, 'name': None}]]")
 
     def test_read_rows_list(self):
-        pass
-        # exc_type, exc_obj, exc_tb = read_rows_list('123')
-        # self.assertEqual(str(exc_type), "<class 'sqlalchemy.exc.StatementError'>")
-        # self.assertEqual(str(exc_obj)
+        exc_type, exc_obj, exc_tb = read_rows_list('123')
+        # table not exist
+        self.assertEqual(str(exc_type), "<class 'sqlalchemy.exc.ArgumentError'>")
+        self.assertEqual(str(exc_obj),"Textual column expression '123' should be explicitly declared with text('123'), or use column('123') for more specificity")
 
     def test_read_row(self):
-        pass
+        # index id not exist
+        exc_type, exc_obj, exc_tb = read_row(Tasks, 0)
+        self.assertEqual(str(exc_type), "<class 'AttributeError'>")
+        self.assertEqual(str(exc_obj),"'NoneType' object has no attribute '__dict__'")
 
     def test_update_row(self):
         pass

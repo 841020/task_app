@@ -2,3 +2,4 @@
 sample.db
 testing.db
 .coverage
+*.yml

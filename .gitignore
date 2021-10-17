@@ -3,3 +3,4 @@ sample.db
 testing.db
 .coverage
 *.yml
+__pycache__
